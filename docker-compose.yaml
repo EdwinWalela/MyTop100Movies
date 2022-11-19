@@ -1,0 +1,57 @@
+version: '3.8'
+services:
+  pgdb:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    volumes:
+      - /pgdata/montech:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=${PG_USER}
+      - POSTGRES_PASSWORD=${PG_PASSWORD}
+      - POSTGRES_DB=${PG_DB}
+    networks:
+      - sera_pay
+  pgdb_admin:
+    image: dpage/pgadmin4
+    ports:
+      - "5431:80"
+    volumes:
+      - /pgdata/montech-admin:/var/lib/postgresql/data/
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PG_ADMIN_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PG_ADMIN_PASS}
+    networks:
+      - sera_pay
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    container_name: swagger-docs
+    expose:
+      - 8080
+    ports:
+      - 7050:8080
+    environment:
+      SWAGGER_JSON: /docs.yaml
+    volumes:
+      - ./api/docs/api/docs.yaml:/docs.yaml
+    networks:
+      - montech
+  api:
+    build: ./api
+    container_name: montech-api
+    restart:  always
+    depends_on:
+      - pgdb
+      - mail-broker
+    ports:
+      - 3000:3000
+    environment:
+      - PG_USER=${PG_USER}
+      - PG_PASSWORD=${PG_PASSWORD}
+      - PG_DB=${PG_DB}
+      - PG_HOST=${PG_DOCKER_HOST}
+    networks:
+      - montech
+networks:
+  montech:
+    driver: bridge
