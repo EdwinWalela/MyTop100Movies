@@ -11,7 +11,7 @@ services:
       - POSTGRES_PASSWORD=${PG_PASSWORD}
       - POSTGRES_DB=${PG_DB}
     networks:
-      - sera_pay
+      - montech
   pgdb_admin:
     image: dpage/pgadmin4
     ports:
@@ -22,10 +22,10 @@ services:
       - PGADMIN_DEFAULT_EMAIL=${PG_ADMIN_EMAIL}
       - PGADMIN_DEFAULT_PASSWORD=${PG_ADMIN_PASS}
     networks:
-      - sera_pay
+      - montech
   swagger-ui:
     image: swaggerapi/swagger-ui
-    container_name: swagger-docs
+    container_name: swagger-docs-montech
     expose:
       - 8080
     ports:
@@ -33,7 +33,7 @@ services:
     environment:
       SWAGGER_JSON: /docs.yaml
     volumes:
-      - ./api/docs/api/docs.yaml:/docs.yaml
+      - ./api/docs/api.yaml:/docs.yaml
     networks:
       - montech
   api:
