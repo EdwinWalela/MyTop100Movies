@@ -61,4 +61,53 @@ paths:
                   error: 
                     type: string
                     example: Email or phone number already in use
+  /auth/login:
+    post:
+      summary: User login 
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    example: 'user@mail.com'
+                  password:
+                    type: string
+                    example: 'password'
+      responses:
+        '200':
+          description: Valid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token: 
+                    type: string
+                    example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoyfSwiaWF0IjoxNjY4ODYyMDA4LCJleHAiOjE2NzE0NTQwMDh9.LcpTTOEb7hJ85cckRPiA304R7PgcBymASqEpHiPiWZM'
+        '400':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error: 
+                    type: string
+                    example: invalid credentials
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error: 
+                    type: string
+                    example: user not found
  
