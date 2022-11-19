@@ -11,6 +11,7 @@
   "author": "edwin",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "^4.6.1",
     "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
@@ -19,7 +20,8 @@
     "jsonwebtoken": "^8.5.1",
     "mocha": "^10.0.0",
     "pg": "^8.7.3",
-    "pg-pool": "^3.5.1"
+    "pg-pool": "^3.5.1",
+    "prisma": "^4.6.1"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
