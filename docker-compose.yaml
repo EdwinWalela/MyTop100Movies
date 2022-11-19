@@ -42,7 +42,6 @@ services:
     restart:  always
     depends_on:
       - pgdb
-      - mail-broker
     ports:
       - 3000:3000
     environment:
