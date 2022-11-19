@@ -1,0 +1,57 @@
+openapi: 3.0.0
+info:
+  version: '1'
+  title: 'My100Movies API'
+  description: 'My100Movies API Documentation'
+components:
+  securitySchemes:
+    bearerAuth:  
+      type: http
+      scheme: bearer
+  schemas:
+    User:
+      type: object
+      properties:
+        id: 
+          type: number
+          description: Ticket id
+          example: 23
+security:
+  - bearerAuth: []
+paths:
+  /auth/register:
+    post:
+      summary: Register user 
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+            application/json:
+              schema:
+                type: object
+      responses:
+        '201':
+          description: Account created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: 
+                    type: string
+                    example: User registered
+                  id: 
+                    type: number
+                    example: 12
+        '400':
+          description: Account not created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error: 
+                    type: string
+                    example: Email or phone number already in use
+ 
