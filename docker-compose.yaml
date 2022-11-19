@@ -33,7 +33,7 @@ services:
     environment:
       SWAGGER_JSON: /docs.yaml
     volumes:
-      - ./api/docs/api/docs.yaml:/docs.yaml
+      - ./api/docs/api.yaml:/docs.yaml
     networks:
       - montech
   api:
