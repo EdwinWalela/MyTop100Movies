@@ -30,6 +30,13 @@ paths:
             application/json:
               schema:
                 type: object
+                properties:
+                  email:
+                    type: string
+                    example: 'user@mail.com'
+                  password:
+                    type: string
+                    example: 'password'
       responses:
         '201':
           description: Account created
@@ -40,7 +47,7 @@ paths:
                 properties:
                   message: 
                     type: string
-                    example: User registered
+                    example: User created
                   id: 
                     type: number
                     example: 12
