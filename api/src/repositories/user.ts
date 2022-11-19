@@ -1,7 +1,6 @@
 import db from '../config/db'
 import User from '../models/User'
-
-const createUserQuery = `INSERT INTO users (username, password) VALUES ($1, $2) RETURNING id;`
+const createUserQuery = `INSERT INTO "User"(email, password) VALUES ($1, $2) RETURNING id;`
 
 const createUser = async (user:User):Promise<number>=>{
   let res;
