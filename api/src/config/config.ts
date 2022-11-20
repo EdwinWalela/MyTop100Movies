@@ -12,6 +12,9 @@ const SALT_ROUNDS = Number(process.env.SALT_ROUNDS);
 const JWT_SECRET = process.env.JWT_SECRET || '';
 const JWT_EXPIRY = Number(process.env.JWT_EXPIRY) || 30;
 
+const MovieDBAPIBaseURL = process.env.MovieDBAPIBaseURL || '';
+const MovieDBAPIKey = process.env.MovieDBAPIKey || '';
+
 const config = {
 	httpPort: HTTP_PORT,
 	db: {
@@ -26,6 +29,10 @@ const config = {
 		expiry: JWT_EXPIRY,
 	},
 	saltRounds: SALT_ROUNDS,
+	movieDB: {
+		baseUrl: MovieDBAPIBaseURL,
+		apiKey: MovieDBAPIKey,
+	},
 };
 
 export default config;
