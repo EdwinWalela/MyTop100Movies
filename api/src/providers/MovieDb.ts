@@ -38,7 +38,7 @@ class MovieDb {
 	private responseSerializer(response: any): Movie[] {
 		let movies: Movie[] = [];
 
-		for (const item of response.data.results) {
+		for (const item of response.results) {
 			let movie = new Movie(item.id, item.title, item.release_date);
 			movies.push(movie);
 		}
