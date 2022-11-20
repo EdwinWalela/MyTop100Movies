@@ -38,4 +38,6 @@ const searchMovie = async (req: Request, res: Response, next: NextFunction) => {
 	});
 };
 
-export default { searchMovie, getMovieList };
+const addMovie = async (req: Request, res: Response, next: NextFunction) => {};
+
+export default { searchMovie, getMovieList, addMovie };
