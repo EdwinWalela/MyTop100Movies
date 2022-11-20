@@ -7,6 +7,14 @@ import db from './config/db';
 import authRoutes from './routes/auth';
 import movieRoutes from './routes/movies';
 
+declare global {
+	namespace Express {
+		interface Request {
+			userId: number;
+		}
+	}
+}
+
 const app: Express = express();
 
 app.use(express.json());
