@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import Movie from '../models/Movie';
+import service from '../services/movies';
 import movieDbAPI from '../providers/MovieDb';
+import MovieListItem from '../models/MovieListItem';
 
 const getMovieList = async (req: Request, res: Response, next: NextFunction) => {
 	let movies: Movie[] = [];
@@ -38,6 +40,44 @@ const searchMovie = async (req: Request, res: Response, next: NextFunction) => {
 	});
 };
 
-const addMovie = async (req: Request, res: Response, next: NextFunction) => {};
+const addMovie = async (req: Request, res: Response, next: NextFunction) => {
+	let movieId = req.body.movieId;
+	let userId = 1;
 
-export default { searchMovie, getMovieList, addMovie };
+	if (!movieId) {
+		return res.status(400).send({
+			error: 'Movie id is required',
+		});
+	}
+
+	try {
+		await service.addMovie(userId, movieId);
+	} catch (error: any) {
+		return res.status(400).send({
+			error: error.message,
+		});
+	}
+
+	return res.status(201).send({
+		message: 'Movie added to list',
+	});
+};
+
+const getUserMovieList = async (req: Request, res: Response, next: NextFunction) => {
+	let userId = 1;
+	let movies: MovieListItem[] = [];
+
+	try {
+		movies = await service.getUserMovieList(userId);
+	} catch (error: any) {
+		return res.status(400).send({
+			error: error.message,
+		});
+	}
+
+	return res.send({
+		movies,
+	});
+};
+
+export default { searchMovie, getMovieList, addMovie, getUserMovieList };
