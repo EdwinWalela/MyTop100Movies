@@ -1,8 +1,8 @@
 import db from '../config/db';
 import MovieListItem from '../models/MovieListItem';
 
-const addMovieQuery = `INSERT into MovieList (id,userId) VALUES ($1,$2)`;
-const getUserMoviesQuery = `SELECT * FROM MovieList WHERE userId = $1`;
+const addMovieQuery = `INSERT into "MovieList" (id,"userId") VALUES ($1,$2)`;
+const getUserMoviesQuery = `SELECT * FROM "MovieList" WHERE "userId" = $1`;
 
 const addMovie = async (movieId: number, userId: number) => {
 	let res;
@@ -25,7 +25,7 @@ const getUserMovieList = async (userId: number): Promise<MovieListItem[]> => {
 	}
 
 	for (const item of res.rows) {
-		let movieItem = new MovieListItem(item.id, item.userid, item.movieid);
+		let movieItem = new MovieListItem(item.id, item.userId, item.id);
 		movieList.push(movieItem);
 	}
 

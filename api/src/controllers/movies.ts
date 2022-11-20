@@ -42,8 +42,8 @@ const searchMovie = async (req: Request, res: Response, next: NextFunction) => {
 
 const addMovie = async (req: Request, res: Response, next: NextFunction) => {
 	let movieId = req.body.movieId;
-	let userId = 1;
-
+	let userId = req.userId;
+	console.log(userId);
 	if (!movieId) {
 		return res.status(400).send({
 			error: 'Movie id is required',
@@ -51,7 +51,7 @@ const addMovie = async (req: Request, res: Response, next: NextFunction) => {
 	}
 
 	try {
-		await service.addMovie(userId, movieId);
+		await service.addMovie(movieId, userId);
 	} catch (error: any) {
 		return res.status(400).send({
 			error: error.message,
