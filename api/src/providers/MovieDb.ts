@@ -11,10 +11,12 @@ class MovieDb {
 		this.baseUrl = config.movieDB.baseUrl;
 	}
 
-	public async getMovieList(): Promise<Movie[]> {
+	public async getMovieList(page: number = 1): Promise<Movie[]> {
 		let res;
 		try {
-			res = await axios.get(`${this.baseUrl}/movie/now_playing?api_key=${this.apiKey}`);
+			res = await axios.get(
+				`${this.baseUrl}/movie/now_playing?api_key=${this.apiKey}&page=${page}`
+			);
 		} catch (error: any) {
 			console.error('Failed to get movie list', error);
 			throw new Error(error.message);
