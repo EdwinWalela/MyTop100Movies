@@ -64,7 +64,7 @@ const addMovie = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 const getUserMovieList = async (req: Request, res: Response, next: NextFunction) => {
-	let userId = 1;
+	let userId = req.userId;
 	let movies: MovieListItem[] = [];
 
 	try {

@@ -26,8 +26,7 @@ const verifyToken = (req: Request, res: Response, next: NextFunction) => {
 			});
 			return;
 		}
-		req.user_id = decoded.user.id;
-		req.user_role = decoded.user.role;
+		req.userId = decoded.user.id;
 		next();
 	} else {
 		res.status(403).send({
