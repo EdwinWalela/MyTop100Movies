@@ -16,3 +16,26 @@ const getMovieList = async (req: Request, res: Response, next: NextFunction) => 
 		movies,
 	});
 };
+
+const searchMovie = async (req: Request, res: Response, next: NextFunction) => {
+	let movies: Movie[] = [];
+	let query = req.query.query ? String(req.query.query) : '';
+
+	if (!query || query === '') {
+		return res.status(400).send({
+			error: 'Query is required',
+		});
+	}
+	try {
+		movies = await movieDbAPI.movieSearch(query);
+	} catch (error: any) {
+		return res.status(400).send({
+			error: error.message,
+		});
+	}
+	return res.send({
+		movies,
+	});
+};
+
+export default { searchMovie, getMovieList };

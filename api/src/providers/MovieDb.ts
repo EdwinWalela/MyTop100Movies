@@ -24,6 +24,17 @@ class MovieDb {
 		return this.responseSerializer(res.data);
 	}
 
+	public async movieSearch(query: string): Promise<Movie[]> {
+		let res;
+		try {
+			res = await axios.get(`${this.baseUrl}/search/movie?query=${query}&api_key=${this.apiKey}`);
+		} catch (error: any) {
+			console.error('Failed to search for movies ', error);
+			throw new Error(error.message);
+		}
+		return this.responseSerializer(res.data);
+	}
+
 	private responseSerializer(response: any): Movie[] {
 		let movies: Movie[] = [];
 
