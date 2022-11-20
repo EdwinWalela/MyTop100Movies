@@ -9,13 +9,36 @@ components:
       type: http
       scheme: bearer
   schemas:
-    User:
+    Movie:
       type: object
       properties:
         id: 
           type: number
           description: Ticket id
           example: 23
+        title: 
+          type: string
+          description: Movie title
+          example: "Black Adam"
+        releaseDate: 
+          type: string
+          description: Movie release date
+          example: '2022-09-23'
+    UserList:
+      type: array
+      items:
+        type: object
+        properties:
+          id: 
+            type: number
+            description: Ticket id
+            example: 23
+          userId: 
+            type: number
+            description: User id
+            example: 55
+          movie:
+            $ref: '#/components/schemas/Movie'
 security:
   - bearerAuth: []
 paths:
@@ -110,4 +133,130 @@ paths:
                   error: 
                     type: string
                     example: user not found
- 
+  /movies:
+    get:
+      summary: Get all movies
+      tags:
+        - Movies
+      parameters:
+      - in: path
+        name: page
+        example: 2
+        schema:
+          type: integer
+        description: Pagination
+      responses:
+        '200':
+          description: Movies found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Movie'
+        '403':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error: 
+                    type: string
+                    example: bearer token required
+    post:
+      summary: Add movie to user list
+      tags:
+        - Movies
+      requestBody:
+        required: true
+        content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  movieId:
+                    type: number
+                    example: 23
+                    description: Movie id from movie list endpoint
+      responses:
+        '201':
+          description: Movie added
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: 
+                    type: string
+                    example: Movie added
+  /movies/search:
+    get:
+      summary: Search movies
+      tags:
+        - Movies
+      parameters:
+      - in: path
+        name: query
+        example: 'black adam'
+        schema:
+          type: string
+        description: Search query
+      responses:
+        '200':
+          description: Movies found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Movie'
+        '403':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error: 
+                    type: string
+                    example: bearer token required
+  /movies/{userId}:
+    get:
+      summary: Get user movies
+      tags:
+        - Movies
+      parameters:
+      - in: path
+        name: userId
+        example: 2
+        schema:
+          type: integer
+        description: User id
+      responses:
+        '200':
+          description: Movies found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserList'
+        '403':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error: 
+                    type: string
+                    example: bearer token required
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error: 
+                    type: string
+                    example: user not found

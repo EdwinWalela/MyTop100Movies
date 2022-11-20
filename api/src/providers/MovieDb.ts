@@ -35,6 +35,18 @@ class MovieDb {
 		return this.responseSerializer(res.data);
 	}
 
+	public async getMovieById(id: number): Promise<Movie> {
+		let res;
+		try {
+			res = await axios.get(`${this.baseUrl}/movie/${id}?api_key=${this.apiKey}`);
+		} catch (error: any) {
+			console.error('Failed to get movie list', error);
+			throw new Error(error.message);
+		}
+
+		return new Movie(res.data.id, res.data.original_title, res.data.release_date);
+	}
+
 	private responseSerializer(response: any): Movie[] {
 		let movies: Movie[] = [];
 

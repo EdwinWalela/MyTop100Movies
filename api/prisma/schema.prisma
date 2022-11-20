@@ -15,4 +15,11 @@ model User{
   createdAt DateTime @default(now())
   email String @db.VarChar(100) @unique 
   password String @db.VarChar(100)
+  movies MovieList[]
+}
+
+model MovieList{
+  id Int @id @default(autoincrement())
+  user   User @relation(fields: [userId], references: [id])
+  userId Int // relation scalar field  (used in the `@relation` attribute above)
 }
