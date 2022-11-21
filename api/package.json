@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "rm -rf ./build && tsc",
-    "dev": "node ./build/app.js"
+    "dev": "npm i && node ./build/app.js"
   },
   "author": "edwin",
   "license": "ISC",
