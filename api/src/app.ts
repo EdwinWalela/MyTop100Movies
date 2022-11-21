@@ -3,6 +3,9 @@ import express from 'express';
 import config from './config/config';
 import { exit } from 'process';
 import db from './config/db';
+import path from 'path';
+import swaggerUi from 'swagger-ui-express';
+import YAML from 'yamljs';
 
 import authRoutes from './routes/auth';
 import movieRoutes from './routes/movies';
@@ -22,6 +25,10 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/movies', movieRoutes);
+
+// Swagger documentation
+const swaggerDocument = YAML.load(path.join(__dirname, '..', 'docs/', 'api.yaml'));
+app.use('/v1/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 (async () => {
 	try {
