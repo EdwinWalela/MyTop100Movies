@@ -39,7 +39,7 @@ services:
   api:
     build: ./api
     container_name: montech-api
-    restart:  always
+    restart:  on-failure
     depends_on:
       - pgdb
     ports:
@@ -48,7 +48,7 @@ services:
       - PG_USER=${PG_USER}
       - PG_PASSWORD=${PG_PASSWORD}
       - PG_DB=${PG_DB}
-      - PG_HOST=${PG_DOCKER_HOST}
+      - PG_HOST=${PG_HOST}
     networks:
       - montech
 networks:
