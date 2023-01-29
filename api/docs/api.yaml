@@ -3,14 +3,7 @@ info:
   version: '1'
   title: 'My100Movies API'
   description: 'My100Movies API Documentation'
-servers:
-  - description: API
-    url: https://mytop100movies.herokuapp.com/api/v1
 components:
-  securitySchemes:
-    bearerAuth:  
-      type: http
-      scheme: bearer
   schemas:
     Movie:
       type: object

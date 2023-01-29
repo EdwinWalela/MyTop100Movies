@@ -2,25 +2,12 @@ version: '3.8'
 services:
   pgdb:
     image: postgres:latest
-    ports:
-      - "5432:5432"
     volumes:
       - /pgdata/montech:/var/lib/postgresql/data/
     environment:
       - POSTGRES_USER=${PG_USER}
       - POSTGRES_PASSWORD=${PG_PASSWORD}
       - POSTGRES_DB=${PG_DB}
-    networks:
-      - montech
-  pgdb_admin:
-    image: dpage/pgadmin4
-    ports:
-      - "5431:80"
-    volumes:
-      - /pgdata/montech-admin:/var/lib/postgresql/data/
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=${PG_ADMIN_EMAIL}
-      - PGADMIN_DEFAULT_PASSWORD=${PG_ADMIN_PASS}
     networks:
       - montech
   swagger-ui:
@@ -43,7 +30,7 @@ services:
     depends_on:
       - pgdb
     ports:
-      - 3000:3000
+      - 3001:3000
     environment:
       - PG_USER=${PG_USER}
       - PG_PASSWORD=${PG_PASSWORD}
